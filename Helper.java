@@ -77,7 +77,7 @@ public class Helper {
 	Thread.sleep(5000);
 
 	// VERIFICATION
-	System.out.println(" -< THE VERIFICATION MODUULE <yet to be implemented >- ");
+	System.out.println(" -< THE VERIFICATION MODULE <yet to be implemented >- ");
 
 	System.exit(0);
     }
