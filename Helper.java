@@ -29,7 +29,7 @@ public class Helper {
 		Stronghold sh = new Stronghold();
 
 		try {
-		    File file = new File("test.properties");
+			File file = new File("test.properties");
 		    FileInputStream fileInput = new FileInputStream(file);
 		    Properties properties = new Properties();
 		    properties.load(fileInput);
@@ -43,16 +43,16 @@ public class Helper {
 		// Creating a bucket and stuff at source and destination
 		ClusterSetup._createBucket(sh, _sourceNodes[0], _sourcePort, _bucketName, _bucketPasswd);
 		Thread.sleep(3000);
-//		ClusterSetup._setupCluster(_sourceNodes, _sourcePort);
-//		ClusterSetup._waitforrebalance(_sourceNodes[0], _sourcePort);
+		//ClusterSetup._setupCluster(_sourceNodes, _sourcePort);
+		//ClusterSetup._waitforrebalance(_sourceNodes[0], _sourcePort);
 		
 		ClusterSetup._createBucket(sh, _destinationNodes[0], _destinationPort, _bucketName, _bucketPasswd);
 		Thread.sleep(3000);
-//		ClusterSetup._setupCluster(_destinationNodes, _destinationPort);
-//		ClusterSetup._waitforrebalance(_destinationNodes[0], _destinationPort);
+		//ClusterSetup._setupCluster(_destinationNodes, _destinationPort);
+		//ClusterSetup._waitforrebalance(_destinationNodes[0], _destinationPort);
 		
-//		Thread.sleep(10000);
-//		ClusterSetup._setupReplication(_sourceNodes[0], _destinationNodes[0], _sourcePort, _bucketName);
+		//Thread.sleep(10000);
+		//ClusterSetup._setupReplication(_sourceNodes[0], _destinationNodes[0], _sourcePort, _bucketName);
 		
 		// Connection to source's and destination's bucket
 		final CouchbaseMetaClient source_client = connect(_sourceNodes[0], _sourcePort);
@@ -62,18 +62,22 @@ public class Helper {
 		System.out.println(">> Launching Sets ..");
 		Setrunner.sets(sh, source_client, destination_client);
 		System.out.println(">> Completed Sets ..");
+		Thread.sleep(5000);
 		
 		// Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
 		System.out.println(">> Launching Deletes ..");
 		Delrunner.dels(sh, source_client, destination_client);
 		System.out.println(">> Completed Deletes ..");
+		Thread.sleep(5000);
 		
 		// Operation that addrm's on source, and addwithMeta's on destination with the meta from addrm
 		System.out.println(">> Launching Adds ..");
 		Addrunner.adds(sh, source_client, destination_client);
 		System.out.println(">> Completed Adds ..");
+		Thread.sleep(5000);
 		
 		// VERIFICATION
+		System.out.println(" -< THE VERIFICATION MODUULE <yet to be implemented >- ");
 		
 		System.exit(0);
 	}

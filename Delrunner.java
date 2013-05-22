@@ -14,7 +14,7 @@ public class Delrunner {
 		 * and with the retrieved metaData runs delwithmetas' on the
 		 * destination cluster
 		 */
-		for (int i=sh.getItemcount(); i<(sh.getItemcount() + sh.getAddCount()); i++) {
+		for (int i=0; i<(int)((double)sh.getItemcount() * sh.getDelRatio()); i++) {
 			OperationFuture<MetaData> delrm = null;
 			OperationFuture<Boolean> delm = null;
 			String key = String.format("%s%d", sh.getPrefix(), i);

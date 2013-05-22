@@ -28,7 +28,7 @@ public class Setrunner {
 		}
 		
 		List<OperationFuture<MetaData>> creates = new LinkedList<OperationFuture<MetaData>>();
-		for (int i=0; i<(sh.getItemcount() - (int)((double)(sh.getItemcount()) * sh.getExpRatio()) - 1); i++) {
+		for (int i=0; i<(sh.getItemcount() - (int)((double)(sh.getItemcount()) * sh.getExpRatio())); i++) {
 			OperationFuture<MetaData> setrm = null;
 			OperationFuture<Boolean> setm = null;
 			String key = String.format("%s%d", sh.getPrefix(), i);
