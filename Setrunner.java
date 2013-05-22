@@ -35,25 +35,21 @@ public class Setrunner {
 		if (sh.isJson()) {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    setrm = _sclient.setReturnMeta(key, 0, 0, _val.toString());
-		    if (setrm.isDone()) {
-			try {
-			    setm = _dclient.setWithMeta(key, _val.toString(), setrm.get(), 0);
-			} catch (Exception e) {
-			    System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
-			    if (setm.get().booleanValue() == false)
-				System.out.println("Reason: " + setm.getStatus().getMessage());
-			}
+		    try {
+			setm = _dclient.setWithMeta(key, _val.toString(), setrm.get(), 0);
+		    } catch (Exception e) {
+			System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
+			if (setm.get().booleanValue() == false)
+			    System.out.println("Reason: " + setm.getStatus().getMessage());
 		    }
 		} else {
 		    setrm = _sclient.setReturnMeta(key, 0, 0, value.toString());
-		    if (setrm.isDone()) {
-			try {
-			    setm = _dclient.setWithMeta(key, value.toString(), setrm.get(), 0);
-			} catch (Exception e) {
-			    System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
-			    if (setm.get().booleanValue() == false)
-				System.out.println("Reason: " + setm.getStatus().getMessage());
-			}
+		    try {
+			setm = _dclient.setWithMeta(key, value.toString(), setrm.get(), 0);
+		    } catch (Exception e) {
+			System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
+			if (setm.get().booleanValue() == false)
+			    System.out.println("Reason: " + setm.getStatus().getMessage());
 		    }
 		}
 		if (setrm.get() == null)
@@ -68,25 +64,21 @@ public class Setrunner {
 		if (sh.isJson()) {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    setrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, _val.toString());
-		    if (setrm.isDone()) {
-			try {
-			    setm = _dclient.setWithMeta(key, _val.toString(), setrm.get(), 0);
-			} catch (Exception e) {
-			    System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
-			    if (setm.get().booleanValue() == false)
-				System.out.println("Reason: " + setm.getStatus().getMessage());
-			}
+		    try {
+			setm = _dclient.setWithMeta(key, _val.toString(), setrm.get(), 0);
+		    } catch (Exception e) {
+			System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
+			if (setm.get().booleanValue() == false)
+			    System.out.println("Reason: " + setm.getStatus().getMessage());
 		    }
 		} else {
 		    setrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, value.toString());
-		    if (setrm.isDone()) {
-			try {
-			    setm = _dclient.setWithMeta(key, value.toString(), setrm.get(), 0);
-			} catch (Exception e) {
-			    System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
-			    if (setm.get().booleanValue() == false)
-				System.out.println("Reason: " + setm.getStatus().getMessage());
-			}
+		    try {
+			setm = _dclient.setWithMeta(key, value.toString(), setrm.get(), 0);
+		    } catch (Exception e) {
+			System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
+			if (setm.get().booleanValue() == false)
+			    System.out.println("Reason: " + setm.getStatus().getMessage());
 		    }
 		}
 		if (setrm.get() == null)

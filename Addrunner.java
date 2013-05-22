@@ -35,25 +35,21 @@ public class Addrunner {
 		if (sh.isJson()) {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    addrm = _sclient.addReturnMeta(key, 0, _val.toString());
-		    if (addrm.isDone()) {
-			try {
-			    addm = _dclient.setWithMeta(key, _val.toString(), addrm.get(), 0);
-			} catch (Exception e) {
-			    System.out.println("Add failed at destination, either because MetaData wasn't retreived from setrm");
-			    if (addm.get().booleanValue() == false)
-				System.out.println("Reason: " + addm.getStatus().getMessage());
-			}
+		    try {
+			addm = _dclient.setWithMeta(key, _val.toString(), addrm.get(), 0);
+		    } catch (Exception e) {
+			System.out.println("Add failed at destination, either because MetaData wasn't retreived from setrm");
+			if (addm.get().booleanValue() == false)
+			    System.out.println("Reason: " + addm.getStatus().getMessage());
 		    }
 		} else {
 		    addrm = _sclient.addReturnMeta(key, 0, value.toString());
-		    if (addrm.isDone()) {
-			try {
-			    addm = _dclient.setWithMeta(key, value.toString(), addrm.get(), 0);
-			} catch (Exception e) {
-			    System.out.println("Add failed at destination, either because MetaData wasn't retreived from setrm");
-			    if (addm.get().booleanValue() == false)
-				System.out.println("Reason: " + addm.getStatus().getMessage());
-			}
+		    try {
+			addm = _dclient.setWithMeta(key, value.toString(), addrm.get(), 0);
+		    } catch (Exception e) {
+			System.out.println("Add failed at destination, either because MetaData wasn't retreived from setrm");
+			if (addm.get().booleanValue() == false)
+			    System.out.println("Reason: " + addm.getStatus().getMessage());
 		    }
 		}
 		if (addrm.get() == null)

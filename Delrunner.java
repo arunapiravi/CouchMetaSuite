@@ -19,14 +19,12 @@ public class Delrunner {
 		OperationFuture<Boolean> delm = null;
 		String key = String.format("%s%d", sh.getPrefix(), i);
 		delrm = _sclient.deleteReturnMeta(key, 0);
-		if (delrm.isDone()) {
-		    try {
-			delm = _dclient.deleteWithMeta(key, delrm.get(), 0);
-		    } catch (Exception e) {
-			System.out.println("Delete failed at destination, either because MetaData wasn't retreived from setrm");
-			if (delm.get().booleanValue() == true)
-			    System.out.println("Reason: " + delm.getStatus().getMessage());
-		    }
+		try {
+		    delm = _dclient.deleteWithMeta(key, delrm.get(), 0);
+		} catch (Exception e) {
+		    System.out.println("Delete failed at destination, either because MetaData wasn't retreived from setrm");
+		    if (delm.get().booleanValue() == true)
+			System.out.println("Reason: " + delm.getStatus().getMessage());
 		}
 	    }
 	}
