@@ -20,10 +20,15 @@ COUCHBASE_META_OPERATION implementation:
 
 ORDER OF EXECUTION:
 
+    - Program prompts user to setup cluster, the bucket, replication
     - All the sets
     - All the deletes
     - All the adds
     - Verification (To be implemented)
+
+NOTE:
+
+    - Multiple instances of this project can be used to run against multiple buckets
 
 COMPILE / EXECUTION Instructions:
 
