@@ -79,7 +79,7 @@ public class Helper {
 	Thread.sleep(5000);
 
 	// Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
-	System.out.println(">> Launching Deletes .. ( " + (int)((double) sh.getItemcount() * sh.getDelRatio()) + " items )");
+	System.out.println(">> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
 	Delrunner.dels(sh, source_client, destination_client);
 	System.out.println(">> Completed Deletes ..");
 	Thread.sleep(5000);

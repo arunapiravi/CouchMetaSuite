@@ -16,13 +16,13 @@ public class Delrunner {
 	     * destination cluster
 	     */
 	    ArrayList<DelayedOps> delayeddels = new ArrayList<DelayedOps>();
-	    for (int i=0; i<(int)((double)sh.getItemcount() * sh.getDelRatio()); i++) {
+	    for (int i=0; i<(sh.getItemcount() * sh.getDelRatio()); i++) {
 		OperationFuture<MetaData> delrm = null;
 		OperationFuture<Boolean> delm = null;
 		String key = String.format("%s%d", sh.getPrefix(), i);
 		delrm = _sclient.deleteReturnMeta(key, 0);
 		assert(delrm.get() != null);
-		//	    sh.storeinSTable(key, null, delrm.get());
+		sh.storeinSTable(key, null, delrm.get());
 		if (sh.getReplicationFlag()) {
 		    delayeddels.add(new DelayedOps(key, null, delrm.get()));
 		} else {
@@ -34,8 +34,8 @@ public class Delrunner {
 			    System.out.println("Reason: " + delm.getStatus().getMessage());
 		    }
 		    assert(delm.get().booleanValue());
-		    //			if (delm.get().booleanValue())
-		    //		    	sh.storeinDTable(key, null, null);
+		    if (delm.get().booleanValue())
+			sh.storeinDTable(key, null, null);
 		}
 	    }
 
@@ -45,8 +45,8 @@ public class Delrunner {
 		for (DelayedOps d : delayeddels) {
 		    OperationFuture<Boolean> delm = _dclient.deleteWithMeta(d.getkey(), d.getmeta(), 0);
 		    assert(delm.get().booleanValue());
-		    //	    		if (delm.get().booleanValue())
-		    //	    			sh.storeinDTable(d.getkey(), null, null);
+		    if (delm.get().booleanValue())
+			sh.storeinDTable(d.getkey(), null, null);
 		}
 	    }
 	}

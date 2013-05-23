@@ -38,7 +38,7 @@ public class Addrunner {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    addrm = _sclient.addReturnMeta(key, 0, _val.toString());
 		    assert(addrm.get() != null);
-		    //		    sh.storeinSTable(key, _val.toString(), addrm.get());
+		    sh.storeinSTable(key, _val.toString(), addrm.get());
 		    if (sh.getReplicationFlag()) {
 			delayedadds.add(new DelayedOps(key, _val.toString(), addrm.get()));
 		    } else {
@@ -50,13 +50,13 @@ public class Addrunner {
 				System.out.println("Reason: " + addm.getStatus().getMessage());
 			}
 			assert(addm.get().booleanValue());
-			//			    if (addm.get().booleanValue())
-			//			    	sh.storeinDTable(key, _val.toString(), null);
+			if (addm.get().booleanValue())
+			    sh.storeinDTable(key, _val.toString(), null);
 		    }
 		} else {
 		    addrm = _sclient.addReturnMeta(key, 0, value.toString());
 		    assert(addrm.get() != null);
-		    //		    sh.storeinSTable(key, value.toString(), addrm.get());
+		    sh.storeinSTable(key, value.toString(), addrm.get());
 		    if (sh.getReplicationFlag()) {
 			delayedadds.add(new DelayedOps(key, value.toString(), addrm.get()));
 		    } else {
@@ -68,8 +68,8 @@ public class Addrunner {
 				System.out.println("Reason: " + addm.getStatus().getMessage());
 			}
 			assert(addm.get().booleanValue());			    
-			//			    if (addm.get().booleanValue())
-			//			    	sh.storeinDTable(key, value.toString(), null);
+			if (addm.get().booleanValue())
+			    sh.storeinDTable(key, value.toString(), null);
 		    }
 		}
 		creates.add(addrm);
@@ -80,8 +80,8 @@ public class Addrunner {
 		Thread.sleep(10000);
 		for (DelayedOps d : delayedadds) {
 		    OperationFuture<Boolean> addm = _dclient.setWithMeta(d.getkey(), d.getval(), d.getmeta(), 0);
-		    //		    if (addm.get().booleanValue())
-		    //			sh.storeinDTable(d.getkey(), d.getval(), null);
+		    if (addm.get().booleanValue())
+			sh.storeinDTable(d.getkey(), d.getval(), null);
 		}
 	    }
 
