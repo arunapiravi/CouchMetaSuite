@@ -112,8 +112,7 @@ public class Stronghold {
 		return _replicationFirst_flag;
 	}
 	public void storeinSTable(String K, String V, MetaData M) {
-		Hashstructure hs = new Hashstructure(V, M.toString());
-		sourceContent.put(K, hs);
+		sourceContent.put(K, new Hashstructure(V, M.toString()));
 	}
 	
 	public Hashstructure retrievefromSTable(String K) {
@@ -121,8 +120,10 @@ public class Stronghold {
 	}
 	
 	public void storeinDTable(String K, String V, MetaData M) {
-		Hashstructure hs = new Hashstructure(V, M.toString());
-		destinationContent.put(K, hs);
+	    if (M == null)
+		destinationContent.put(K, new Hashstructure(V, null));
+	    else
+		destinationContent.put(K, new Hashstructure(V, M.toString()));
 	}
 	
 	public Hashstructure retrievefromDTable(String K) {
