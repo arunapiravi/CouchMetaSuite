@@ -1,4 +1,4 @@
-COUCHBASE_META_OPERATION implementation:
+COUCHBASE_META_OPERATIONS implementation:
 
     Specify cluster-load details in test.properties
                                
