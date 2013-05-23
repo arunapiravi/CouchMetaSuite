@@ -35,3 +35,26 @@ COMPILE / EXECUTION Instructions:
 
     To clean Class files:
     make clean
+
+FILES:
+
+    Helper                          ...Parent class that orchestrates all the operations
+    Setrunner                       ...Class that runs sets, be it with expires or not, will populate
+                                       hashtables used in verification
+    Addrunner                       ...Class that runs adds, be it with expires or not, will populate
+                                       hashtables used in verification
+    Delrunner                       ...Class that runs deletes, will populate hashtables used in 
+                                       verification, del-ratio works on item-count for now
+    
+    Stronghold                      ...Stores attributes retrieved from test.properties, hashtables
+                                       used in verification declared here
+    Hashstructure                   ...Hashtables (used in verification) will have key as the item's
+                                       key, and value as an instance of this class (which contains 
+                                       the document and metadata)
+    DelayedOps                      ...In case of replication-starts-first flag set to true, an arraylist
+                                       with data being an instance of this class (which contains key, 
+                                       value, metadata) is populated for setWithMeta commands to run once
+                                       all the setReturnMetas complete + a timeout threshold of 10s.
+    
+    Spawner                         ...Creates JSON documents if json set to true in test.properties
+    ClusterSetup                    ...To setup the cluster based on specifications (NOT IN USE)
