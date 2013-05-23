@@ -17,10 +17,10 @@ COUCHBASE_META_OPERATIONS implementation:
     add-count:                      ...items to add
     replication-starts-first:       ...false => setm immediaetly after setrm
                                        true => setms run after all setrms + timed_wait (10s)
-    biXDCR			    ...set to true if biXDCR replication and front end needed on
-    				       destination as well
-    parallelFrontEnds		    ...leave at false for now, to_be_implemented: Front end to
-    				       run parallely on source and destination if set to true
+    biXDCR			                ...set to true if biXDCR replication and front end needed on
+    				                   destination as well
+    parallelFrontEnds		        ...leave at false for now, to_be_implemented: Front end to
+    				                   run parallely on source and destination if set to true
 
 ORDER OF EXECUTION:
 
