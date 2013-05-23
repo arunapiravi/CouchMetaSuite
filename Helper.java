@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
 import org.codehaus.jettison.json.JSONException;
@@ -40,38 +41,51 @@ public class Helper {
 	    e.printStackTrace();
 	}
 
+	System.out.println(" --> \n Cluster Setup pending automation, \n Please setup clusters, buckets, replications ." +
+		"\n Once DONE, hit ENTER to continue ..\n <--\n");
+	Scanner scan = new Scanner(System.in);
+	scan.nextLine();
+
+	/*
 	// Creating a bucket and stuff at source and destination
 	ClusterSetup._createBucket(sh, _sourceNodes[0], _sourcePort, _bucketName, _bucketPasswd);
 	Thread.sleep(3000);
-	//ClusterSetup._setupCluster(_sourceNodes, _sourcePort);
-	//ClusterSetup._waitforrebalance(_sourceNodes[0], _sourcePort);
+	ClusterSetup._setupCluster(_sourceNodes, _sourcePort);
+	ClusterSetup._waitforrebalance(_sourceNodes[0], _sourcePort);
 
 	ClusterSetup._createBucket(sh, _destinationNodes[0], _destinationPort, _bucketName, _bucketPasswd);
 	Thread.sleep(3000);
-	//ClusterSetup._setupCluster(_destinationNodes, _destinationPort);
-	//ClusterSetup._waitforrebalance(_destinationNodes[0], _destinationPort);
+	ClusterSetup._setupCluster(_destinationNodes, _destinationPort);
+	ClusterSetup._waitforrebalance(_destinationNodes[0], _destinationPort);
 
-	//Thread.sleep(10000);
-	//ClusterSetup._setupReplication(_sourceNodes[0], _destinationNodes[0], _sourcePort, _bucketName);
+	Thread.sleep(10000);
+	ClusterSetup._setupReplication(_sourceNodes[0], _destinationNodes[0], _sourcePort, _bucketName);
+	 */
 
 	// Connection to source's and destination's bucket
 	final CouchbaseMetaClient source_client = connect(_sourceNodes[0], _sourcePort);
 	final CouchbaseMetaClient destination_client = connect(_destinationNodes[0], _destinationPort);
 
+	if (sh.getReplicationFlag()) {
+	    System.out.println(" --> OperationsWithMetas sent once all the OperationReturnMetas are complete.");
+	} else {
+	    System.out.println(" --> OperationsWithMetas sent immediately after individual OperationReturnMetas complete.");
+	}
+
 	// Operation that setrm's on source, and setwithMeta's on destination with the meta from setrm
-	System.out.println(">> Launching Sets ..");
+	System.out.println(">> Launching Sets .. ( " + sh.getItemcount() + " items )");
 	Setrunner.sets(sh, source_client, destination_client);
 	System.out.println(">> Completed Sets ..");
 	Thread.sleep(5000);
 
 	// Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
-	System.out.println(">> Launching Deletes ..");
+	System.out.println(">> Launching Deletes .. ( " + (int)((double) sh.getItemcount() * sh.getDelRatio()) + " items )");
 	Delrunner.dels(sh, source_client, destination_client);
 	System.out.println(">> Completed Deletes ..");
 	Thread.sleep(5000);
 
 	// Operation that addrm's on source, and addwithMeta's on destination with the meta from addrm
-	System.out.println(">> Launching Adds ..");
+	System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
 	Addrunner.adds(sh, source_client, destination_client);
 	System.out.println(">> Completed Adds ..");
 	Thread.sleep(5000);
@@ -138,6 +152,8 @@ public class Helper {
 		sh.setDelRatio(Float.parseFloat(properties.getProperty(key)));
 	    if (key.equals("add-count"))
 		sh.setAddCount(Integer.parseInt(properties.getProperty(key)));
+	    if (key.equals("replication-starts-first"))
+		sh.setReplicationFlag(Boolean.parseBoolean(properties.getProperty(key)));
 	}
 
     }
