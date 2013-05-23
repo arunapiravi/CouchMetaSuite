@@ -45,6 +45,9 @@ FILES:
                                        hashtables used in verification
     Delrunner                       ...Class that runs deletes, will populate hashtables used in 
                                        verification, del-ratio works on item-count for now
+    Verification                    ...To be implemented, to retrieve MetaData of all items from
+                                       destination, repopulate destination's hashtable, and compare
+                                       the source's and destination's hashtables
     
     Stronghold                      ...Stores attributes retrieved from test.properties, hashtables
                                        used in verification declared here
@@ -54,7 +57,7 @@ FILES:
     DelayedOps                      ...In case of replication-starts-first flag set to true, an arraylist
                                        with data being an instance of this class (which contains key, 
                                        value, metadata) is populated for setWithMeta commands to run once
-                                       all the setReturnMetas complete + a timeout threshold of 10s.
+                                       all the setReturnMetas complete + a timeout threshold of 10s
     
     Spawner                         ...Creates JSON documents if json set to true in test.properties
     ClusterSetup                    ...To setup the cluster based on specifications (NOT IN USE)
