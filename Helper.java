@@ -91,6 +91,8 @@ public class Helper {
 	Thread.sleep(5000);
 
 	// VERIFICATION
+	//System.out.println("Starting the verification stage .. ");
+	//Verification.comparison(sh, source_client, destination_client);
 	System.out.println(" -< THE VERIFICATION MODULE <yet to be implemented >- ");
 
 	System.exit(0);
@@ -117,7 +119,6 @@ public class Helper {
 	/*
 	 * Read test variables from test.properties file
 	 */
-
 	Enumeration<Object> enuKeys = properties.keys();
 	while(enuKeys.hasMoreElements()){
 	    String key = (String) enuKeys.nextElement();
