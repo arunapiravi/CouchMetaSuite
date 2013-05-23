@@ -2,7 +2,7 @@ COUCHBASE_META_OPERATION implementation:
 
     Specify cluster-load details in test.properties
                                
-    source/destination:             ...source-node(s), seperated by ","
+    source/destination:             ...source/destination-node(s), seperated by ","
     source-port/destination-port:   ...couchbase port
     bucket-name:                    ...name of bucket
     bucket-password:                ...bucket's password
