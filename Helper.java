@@ -24,6 +24,8 @@ public class Helper {
     private static String _destinationPort = "";	
     private static String _bucketName = "default";
     private static String _bucketPasswd = "";
+    private static String _prefix1 = "";
+    private static String _prefix2 = "";
 
     public static void main(String args[]) throws MalformedURLException, IOException, JSONException, InterruptedException, ExecutionException {
 
@@ -69,26 +71,55 @@ public class Helper {
 	if (sh.getReplicationFlag()) {
 	    System.out.println(" --> OperationsWithMetas sent once all the OperationReturnMetas are complete.");
 	} else {
-	    System.out.println(" --> OperationsWithMetas sent immediately after individual OperationReturnMetas complete.");
+	    System.out.println(" --> OperationsWithMetas sent immediately after every OperationReturnMeta completes.");
 	}
 
-	// Operation that setrm's on source, and setwithMeta's on destination with the meta from setrm
-	System.out.println(">> Launching Sets .. ( " + sh.getItemcount() + " items )");
-	Setrunner.sets(sh, source_client, destination_client);
-	System.out.println(">> Completed Sets ..");
-	Thread.sleep(5000);
+	if (!sh.getparallel()) {
+	    // Operation that setrm's on source, and setwithMeta's on destination with the meta from setrm
+	    System.out.println(">> Launching Sets .. ( " + sh.getItemcount() + " items )");
+	    Setrunner.sets(sh, source_client, destination_client, _prefix1);
+	    System.out.println(">> Completed Sets ..");
+	    Thread.sleep(5000);
 
-	// Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
-	System.out.println(">> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
-	Delrunner.dels(sh, source_client, destination_client);
-	System.out.println(">> Completed Deletes ..");
-	Thread.sleep(5000);
+	    if (sh.getbiXDCR()) {
+		System.out.println("biXDCR: Front end on destination ..");
+		System.out.println(">> Launching Sets .. ( " + sh.getItemcount() + " items )");
+		Setrunner.sets(sh, destination_client, source_client, _prefix2);
+		System.out.println(">> Completed Sets ..");
+		Thread.sleep(5000);
+	    }
 
-	// Operation that addrm's on source, and addwithMeta's on destination with the meta from addrm
-	System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
-	Addrunner.adds(sh, source_client, destination_client);
-	System.out.println(">> Completed Adds ..");
-	Thread.sleep(5000);
+	    // Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
+	    System.out.println(">> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
+	    Delrunner.dels(sh, source_client, destination_client, _prefix1);
+	    System.out.println(">> Completed Deletes ..");
+	    Thread.sleep(5000);
+
+	    if (sh.getbiXDCR()) {
+		System.out.println("biXDCR: Front end on destination ..");
+		System.out.println(">> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
+		Delrunner.dels(sh, destination_client, source_client, _prefix2);
+		System.out.println(">> Completed Deletes ..");
+		Thread.sleep(5000);
+	    }
+
+	    // Operation that addrm's on source, and addwithMeta's on destination with the meta from addrm
+	    System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
+	    Addrunner.adds(sh, source_client, destination_client, _prefix1);
+	    System.out.println(">> Completed Adds ..");
+	    Thread.sleep(5000);
+
+	    if (sh.getbiXDCR()) {
+		System.out.println("biXDCR: Front end on destination ..");
+		System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
+		Addrunner.adds(sh, destination_client, source_client, _prefix2);
+		System.out.println(">> Completed Adds ..");
+		Thread.sleep(5000);
+	    }
+	} else {
+	    // TODO: Parallel front end loads for both the clusters
+	    System.out.println(" * * * NOT IMPLEMENTED YET, re-run with parallelFrontEnds=false * * * ");
+	}
 
 	// VERIFICATION
 	//System.out.println("Starting the verification stage .. ");
@@ -134,6 +165,10 @@ public class Helper {
 		_bucketName = properties.getProperty(key);
 	    if (key.equals("bucket-password"))
 		_bucketPasswd = properties.getProperty(key);
+	    if (key.equals("prefix1"))
+		_prefix1 = properties.getProperty(key);
+	    if (key.equals("prefix2"))
+		_prefix2 = properties.getProperty(key);
 
 	    if (key.equals("bucket-memQuota"))
 		sh.setMemquota(Integer.parseInt(properties.getProperty(key)));
@@ -143,8 +178,6 @@ public class Helper {
 		sh.setItemcount(Integer.parseInt(properties.getProperty(key)));
 	    if (key.equals("item-size"))
 		sh.setSize(Integer.parseInt(properties.getProperty(key)));
-	    if (key.equals("prefix"))
-		sh.setPrefix(properties.getProperty(key));
 	    if (key.equals("exp-ratio"))
 		sh.setExpRatio(Float.parseFloat(properties.getProperty(key)));
 	    if (key.equals("expiration-time"))
@@ -155,6 +188,10 @@ public class Helper {
 		sh.setAddCount(Integer.parseInt(properties.getProperty(key)));
 	    if (key.equals("replication-starts-first"))
 		sh.setReplicationFlag(Boolean.parseBoolean(properties.getProperty(key)));
+	    if (key.equals("biXDCR"))
+		sh.setbiXDCR(Boolean.parseBoolean(properties.getProperty(key)));
+	    if (key.equals("parallelFrontEnds"))
+		sh.setparallel(Boolean.parseBoolean(properties.getProperty(key)));
 	}
 
     }

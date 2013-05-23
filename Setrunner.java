@@ -14,7 +14,7 @@ import com.couchbase.client.MetaData;
 
 public class Setrunner {
 
-    public static void sets (Stronghold sh, CouchbaseMetaClient _sclient, CouchbaseMetaClient _dclient) 
+    public static void sets (Stronghold sh, CouchbaseMetaClient _sclient, CouchbaseMetaClient _dclient, String prefix) 
 	throws JSONException, InterruptedException, ExecutionException {
 	    /*
 	     * Module to create items through setrms' on the source cluster,
@@ -33,7 +33,7 @@ public class Setrunner {
 	    for (int i=0; i<(sh.getItemcount() - (int)((double)(sh.getItemcount()) * sh.getExpRatio())); i++) {
 		OperationFuture<MetaData> setrm = null;
 		OperationFuture<Boolean> setm = null;
-		String key = String.format("%s%d", sh.getPrefix(), i);
+		String key = String.format("%s%d", prefix, i);
 		if (sh.isJson()) {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    setrm = _sclient.setReturnMeta(key, 0, 0, _val.toString());
@@ -77,7 +77,7 @@ public class Setrunner {
 	    for (int i=(sh.getItemcount() - (int)((double)(sh.getItemcount()) * sh.getExpRatio())); i<sh.getItemcount(); i++) {
 		OperationFuture<MetaData> setrm = null;
 		OperationFuture<Boolean> setm = null;
-		String key = String.format("%s%d", sh.getPrefix(), i);
+		String key = String.format("%s%d", prefix, i);
 		if (sh.isJson()) {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    setrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, _val.toString());

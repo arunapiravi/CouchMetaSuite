@@ -14,7 +14,7 @@ import com.couchbase.client.MetaData;
 
 public class Addrunner {
 
-    public static void adds (Stronghold sh, CouchbaseMetaClient _sclient, CouchbaseMetaClient _dclient) 
+    public static void adds (Stronghold sh, CouchbaseMetaClient _sclient, CouchbaseMetaClient _dclient, String prefix) 
 	throws JSONException, InterruptedException, ExecutionException {
 	    /*
 	     * Module to create items through addrms' on the source cluster,
@@ -33,7 +33,7 @@ public class Addrunner {
 	    for (int i=sh.getItemcount(); i<(sh.getItemcount() + sh.getAddCount()); i++) {
 		OperationFuture<MetaData> addrm = null;
 		OperationFuture<Boolean> addm = null;
-		String key = String.format("%s%d", sh.getPrefix(), i);
+		String key = String.format("%s%d", prefix, i);
 		if (sh.isJson()) {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    addrm = _sclient.addReturnMeta(key, 0, _val.toString());

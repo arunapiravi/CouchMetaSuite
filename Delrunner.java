@@ -8,7 +8,7 @@ import com.couchbase.client.MetaData;
 
 public class Delrunner {
 
-    public static void dels (Stronghold sh, CouchbaseMetaClient _sclient, CouchbaseMetaClient _dclient) 
+    public static void dels (Stronghold sh, CouchbaseMetaClient _sclient, CouchbaseMetaClient _dclient, String prefix) 
 	throws InterruptedException, ExecutionException {
 	    /*
 	     * Method to delete items through delrms' on the source cluster,
@@ -16,10 +16,10 @@ public class Delrunner {
 	     * destination cluster
 	     */
 	    ArrayList<DelayedOps> delayeddels = new ArrayList<DelayedOps>();
-	    for (int i=0; i<(sh.getItemcount() * sh.getDelRatio()); i++) {
+	    for (int i=0; i<Math.round(sh.getItemcount() * sh.getDelRatio()); i++) {
 		OperationFuture<MetaData> delrm = null;
 		OperationFuture<Boolean> delm = null;
-		String key = String.format("%s%d", sh.getPrefix(), i);
+		String key = String.format("%s%d", prefix, i);
 		delrm = _sclient.deleteReturnMeta(key, 0);
 		assert(delrm.get() != null);
 		sh.storeinSTable(key, null, delrm.get());
