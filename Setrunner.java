@@ -24,7 +24,7 @@ public class Setrunner {
 	    ArrayList<DelayedOps> delayedsets = new ArrayList<DelayedOps>();
 	    Random gen = new Random ( 987654321 );
 	    StringBuffer value = new StringBuffer();
-	    String CHAR_LIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	    String CHAR_LIST = "ABCD";
 	    while (value.length() < sh.getItemsize()) {
 		value.append(CHAR_LIST);
 	    }
@@ -50,8 +50,7 @@ public class Setrunner {
 				System.out.println("Reason: " + setm.getStatus().getMessage());
 			}
 			assert(setm.get().booleanValue());
-			if (setm.get().booleanValue())
-			    sh.storeinDTable(key, _val.toString(), null);
+			sh.storeinDTable(key, _val.toString(), null);
 		    }
 		} else {
 		    setrm = _sclient.setReturnMeta(key, 0, 0, value.toString());
@@ -68,8 +67,7 @@ public class Setrunner {
 				System.out.println("Reason: " + setm.getStatus().getMessage());
 			}
 			assert(setm.get().booleanValue());
-			if (setm.get().booleanValue())
-			    sh.storeinDTable(key, value.toString(), null);
+			sh.storeinDTable(key, value.toString(), null);
 		    }
 		}
 		creates.add(setrm);
@@ -94,8 +92,7 @@ public class Setrunner {
 				System.out.println("Reason: " + setm.getStatus().getMessage());
 			}
 			assert(setm.get().booleanValue());
-			if (setm.get().booleanValue())
-			    sh.storeinDTable(key, _val.toString(), null);
+			sh.storeinDTable(key, _val.toString(), null);
 		    }
 		} else {
 		    setrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, value.toString());
@@ -112,8 +109,7 @@ public class Setrunner {
 				System.out.println("Reason: " + setm.getStatus().getMessage());
 			}
 			assert(setm.get().booleanValue());
-			if (setm.get().booleanValue())
-			    sh.storeinDTable(key, value.toString(), null);
+			sh.storeinDTable(key, value.toString(), null);
 		    }
 		}
 		creates.add(setrm);
@@ -125,8 +121,7 @@ public class Setrunner {
 		for (DelayedOps d : delayedsets) {
 		    OperationFuture<Boolean> setm = _dclient.setWithMeta(d.getkey(), d.getval(), d.getmeta(), 0);
 		    assert(setm.get().booleanValue());
-		    if (setm.get().booleanValue())
-			sh.storeinDTable(d.getkey(), d.getval(), null);
+		    sh.storeinDTable(d.getkey(), d.getval(), null);
 		}
 	    }
 

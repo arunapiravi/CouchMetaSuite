@@ -24,7 +24,7 @@ public class Addrunner {
 	    ArrayList<DelayedOps> delayedadds = new ArrayList<DelayedOps>();
 	    Random gen = new Random ( 987654321 );
 	    StringBuffer value = new StringBuffer();
-	    String CHAR_LIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	    String CHAR_LIST = "ABCD";
 	    while (value.length() < sh.getItemsize()) {
 		value.append(CHAR_LIST);
 	    }
@@ -50,8 +50,7 @@ public class Addrunner {
 				System.out.println("Reason: " + addm.getStatus().getMessage());
 			}
 			assert(addm.get().booleanValue());
-			if (addm.get().booleanValue())
-			    sh.storeinDTable(key, _val.toString(), null);
+			sh.storeinDTable(key, _val.toString(), null);
 		    }
 		} else {
 		    addrm = _sclient.addReturnMeta(key, 0, value.toString());
@@ -68,8 +67,7 @@ public class Addrunner {
 				System.out.println("Reason: " + addm.getStatus().getMessage());
 			}
 			assert(addm.get().booleanValue());			    
-			if (addm.get().booleanValue())
-			    sh.storeinDTable(key, value.toString(), null);
+			sh.storeinDTable(key, value.toString(), null);
 		    }
 		}
 		creates.add(addrm);

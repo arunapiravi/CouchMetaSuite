@@ -13,6 +13,7 @@ public class Stronghold {
     private int _expiration;
     private double _delRatio;
     private int _addCount;
+    private double _updRatio;
     private boolean _replicationFirst_flag;
     private boolean biXDCR;
     private boolean parallelFrontEnds;
@@ -31,6 +32,7 @@ public class Stronghold {
 	_expiration = 0;
 	_delRatio = 0.0;
 	_addCount = 0;
+	_updRatio = 0.0;
 	_replicationFirst_flag = false;
 	biXDCR = false;
 	parallelFrontEnds = false;
@@ -68,6 +70,10 @@ public class Stronghold {
 
     public void setAddCount(int addcount) {
 	_addCount = addcount;
+    }
+
+    public void setUpdRatio(double upd) {
+	_updRatio = upd;
     }
 
     public void setReplicationFlag(boolean flag) {
@@ -120,6 +126,10 @@ public class Stronghold {
 
     public int getAddCount() {
 	return _addCount;
+    }
+
+    public double getUpdRatio() {
+	return _updRatio;
     }
 
     public boolean getReplicationFlag() {

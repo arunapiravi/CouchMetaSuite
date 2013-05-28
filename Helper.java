@@ -69,9 +69,9 @@ public class Helper {
 	final CouchbaseMetaClient destination_client = connect(_destinationNodes[0], _destinationPort);
 
 	if (sh.getReplicationFlag()) {
-	    System.out.println(" --> OperationsWithMetas sent once all the OperationReturnMetas are complete.");
+	    System.out.println("\n--> OperationsWithMetas sent once all the OperationReturnMetas are complete.");
 	} else {
-	    System.out.println(" --> OperationsWithMetas sent immediately after every OperationReturnMeta completes.");
+	    System.out.println("\n--> OperationsWithMetas sent immediately after every OperationReturnMeta completes.");
 	}
 
 	if (!sh.getparallel()) {
@@ -100,6 +100,20 @@ public class Helper {
 		System.out.println(">> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
 		Delrunner.dels(sh, destination_client, source_client, _prefix2);
 		System.out.println(">> Completed Deletes ..");
+		Thread.sleep(5000);
+	    }
+
+	    // Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
+	    System.out.println(">> Launching Updates .. ( " + Math.round(sh.getItemcount() * sh.getUpdRatio()) + " items )");
+	    Updrunner.upds(sh, source_client, destination_client, _prefix1);
+	    System.out.println(">> Completed Updates ..");
+	    Thread.sleep(5000);
+
+	    if (sh.getbiXDCR()) {
+		System.out.println("biXDCR: Front end on destination ..");
+		System.out.println(">> Launching Updates .. ( " + Math.round(sh.getItemcount() * sh.getUpdRatio()) + " items )");
+		Updrunner.upds(sh, destination_client, source_client, _prefix2);
+		System.out.println(">> Completed Updates ..");
 		Thread.sleep(5000);
 	    }
 
@@ -188,6 +202,8 @@ public class Helper {
 		sh.setDelRatio(Float.parseFloat(properties.getProperty(key)));
 	    if (key.equals("add-count"))
 		sh.setAddCount(Integer.parseInt(properties.getProperty(key)));
+	    if (key.equals("upd-ratio"))
+		sh.setUpdRatio(Float.parseFloat(properties.getProperty(key)));
 	    if (key.equals("replication-starts-first"))
 		sh.setReplicationFlag(Boolean.parseBoolean(properties.getProperty(key)));
 	    if (key.equals("biXDCR"))
