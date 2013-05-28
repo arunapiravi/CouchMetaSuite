@@ -34,8 +34,7 @@ public class Delrunner {
 			    System.out.println("Reason: " + delm.getStatus().getMessage());
 		    }
 		    assert(delm.get().booleanValue());
-		    if (delm.get().booleanValue())
-			sh.storeinDTable(key, null, null);
+		    sh.storeinDTable(key, null, null);
 		}
 	    }
 
@@ -45,8 +44,7 @@ public class Delrunner {
 		for (DelayedOps d : delayeddels) {
 		    OperationFuture<Boolean> delm = _dclient.deleteWithMeta(d.getkey(), d.getmeta(), 0);
 		    assert(delm.get().booleanValue());
-		    if (delm.get().booleanValue())
-			sh.storeinDTable(d.getkey(), null, null);
+		    sh.storeinDTable(d.getkey(), null, null);
 		}
 	    }
 	}

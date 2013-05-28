@@ -14,6 +14,7 @@ public class Verification {
     @SuppressWarnings("rawtypes")
 	public static void comparison(Stronghold sh, CouchbaseMetaClient sclient, CouchbaseMetaClient dclient) 
 	throws InterruptedException, ExecutionException, IOException {
+
 	    populate_destTable(sh, dclient);
 
 	    if (sh.iswritetofile()) {
@@ -51,12 +52,20 @@ public class Verification {
 	    }
 
 	    int BADflag = 0;
-	    for (Map.Entry<String, Hashstructure> htEntries : sh.sourceContent.entrySet()) {
-		if (sh.sourceContent.size() != sh.destinationContent.size()) {
-		    System.out.println("- Item count didn't match!");
-		    BADflag = 1;
-		} else {
+	    if (sh.sourceContent.size() != sh.destinationContent.size()) {
+		System.out.println("- Item count didn't match!");
+		BADflag = 1;
+	    } else {
+		for (Map.Entry<String, Hashstructure> htEntries : sh.sourceContent.entrySet()) {
 		    if (sh.destinationContent.containsKey(htEntries.getKey())) {
+			if (sh.destinationContent.get(htEntries.getKey()).readdata() == null && htEntries.getValue().readdata() == null) {
+			    // In case of deleted items, in which case data is set to null
+			    if (!(sh.destinationContent.get(htEntries.getKey()).readmetadata().equals(htEntries.getValue().readmetadata()))) {
+				BADflag = 1;
+				System.out.println("First mismatch detected at Key: " + htEntries.getKey());
+				break;
+			    }
+			}
 			if (!(sh.destinationContent.get(htEntries.getKey()).readdata().equals(htEntries.getValue().readdata()))
 				&& (sh.destinationContent.get(htEntries.getKey()).readmetadata().equals(htEntries.getValue().readmetadata()))) {
 			    BADflag = 1;
