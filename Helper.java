@@ -122,9 +122,11 @@ public class Helper {
 	}
 
 	// VERIFICATION
-	//System.out.println("Starting the verification stage .. ");
-	//Verification.comparison(sh, source_client, destination_client);
-	System.out.println(" -< THE VERIFICATION MODULE <yet to be implemented >- ");
+	if (sh.getdoVerify()) {
+	    System.out.println("Starting the verification stage .. ");
+	    Verification.comparison(sh, source_client, destination_client);
+	} else
+	    System.out.println("Skipping the verification stage\n");
 
 	System.exit(0);
     }
@@ -192,6 +194,8 @@ public class Helper {
 		sh.setbiXDCR(Boolean.parseBoolean(properties.getProperty(key)));
 	    if (key.equals("parallelFrontEnds"))
 		sh.setparallel(Boolean.parseBoolean(properties.getProperty(key)));
+	    if (key.equals("doVerify"))
+		sh.setdoVerify(Boolean.parseBoolean(properties.getProperty(key)));
 	    if (key.equals("write-data-to-file"))
 		sh.setaboutwrite(Boolean.parseBoolean(properties.getProperty(key)));
 	}

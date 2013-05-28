@@ -18,12 +18,18 @@ public class Verification {
 
 	    if (sh.iswritetofile()) {
 		System.out.println("Writing data to file data_log.txt");
-		File file = new File("data_log.txt");
-		if (file.exists())
-		    file.delete();
-		file.createNewFile();
-		FileWriter fw = new FileWriter(file.getAbsolutePath());
-		BufferedWriter bw = new BufferedWriter(fw);
+		File file1 = new File("source_data_log.txt");
+		File file2 = new File("destination_data_log.txt");
+		if (file1.exists())
+		    file1.delete();
+		if (file2.exists())
+		    file2.delete();
+		file1.createNewFile();
+		file2.createNewFile();
+		FileWriter fw1 = new FileWriter(file1.getAbsolutePath());
+		BufferedWriter bw1 = new BufferedWriter(fw1);
+		FileWriter fw2 = new FileWriter(file1.getAbsolutePath());
+		BufferedWriter bw2 = new BufferedWriter(fw2);
 		Iterator it1 = sh.sourceContent.entrySet().iterator();
 		Iterator it2 = sh.destinationContent.entrySet().iterator();
 		while(it1.hasNext()) {
@@ -31,16 +37,17 @@ public class Verification {
 		    String key = (String) p1.getKey();
 		    Hashstructure val = (Hashstructure) p1.getValue();
 		    //System.out.println(key + " -- " + val._data + " -- " + val._metadata);
-		    bw.write(key + " -- " + val._data + " -- " + val._metadata + "\n");
+		    bw1.write(key + " -- " + val._data + " -- " + val._metadata + "\n");
 		}
 		while (it2.hasNext()) {
 		    Map.Entry p2 = (Map.Entry) it2.next();
 		    String key = (String) p2.getKey();
 		    Hashstructure val = (Hashstructure) p2.getValue();
 		    //System.out.println(key + " -- " + val._data + " -- " + val._metadata);
-		    bw.write(key + " -- " + val._data + " -- " + val._metadata + "\n");
+		    bw2.write(key + " -- " + val._data + " -- " + val._metadata + "\n");
 		}
-		bw.close();
+		bw1.close();
+		bw2.close();
 	    }
 
 	    int BADflag = 0;
