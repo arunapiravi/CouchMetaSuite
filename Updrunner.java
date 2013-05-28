@@ -21,7 +21,7 @@ public class Updrunner {
 	     * and with the retrieved metaData, runs setwithmetas' on the
 	     * destination cluster
 	     */
-	    ArrayList<DelayedOps> delayedadds = new ArrayList<DelayedOps>();
+	    ArrayList<DelayedOps> delayedupds = new ArrayList<DelayedOps>();
 	    Random gen = new Random ( 987654321 );
 	    StringBuffer value = new StringBuffer();
 	    String CHAR_LIST = "ABCD";
@@ -30,7 +30,7 @@ public class Updrunner {
 	    }
 
 	    List<OperationFuture<MetaData>> creates = new LinkedList<OperationFuture<MetaData>>();
-	    for (int i=(int) (sh.getItemcount() - Math.round(1 - sh.getUpdRatio())); i<sh.getItemcount(); i++) {
+	    for (int i=(int) (sh.getItemcount() + sh.getAddCount() - Math.round(1 - sh.getUpdRatio())); i<(sh.getItemcount() + sh.getAddCount()); i++) {
 		OperationFuture<MetaData> updrm = null;
 		OperationFuture<Boolean> updm = null;
 		String key = String.format("%s%d", prefix, i);
@@ -40,7 +40,7 @@ public class Updrunner {
 		    assert(updrm.get() != null);
 		    sh.storeinSTable(key, _val.toString(), updrm.get());
 		    if (sh.getReplicationFlag()) {
-			delayedadds.add(new DelayedOps(key, _val.toString(), updrm.get()));
+			delayedupds.add(new DelayedOps(key, _val.toString(), updrm.get()));
 		    } else {
 			try {
 			    updm = _dclient.setWithMeta(key, _val.toString(), updrm.get(), 0);
@@ -57,7 +57,7 @@ public class Updrunner {
 		    assert(updrm.get() != null);
 		    sh.storeinSTable(key, value.toString(), updrm.get());
 		    if (sh.getReplicationFlag()) {
-			delayedadds.add(new DelayedOps(key, value.toString(), updrm.get()));
+			delayedupds.add(new DelayedOps(key, value.toString(), updrm.get()));
 		    } else {
 			try {
 			    updm = _dclient.setWithMeta(key, value.toString(), updrm.get(), 0);
@@ -76,7 +76,7 @@ public class Updrunner {
 	    if (sh.getReplicationFlag()) {
 		System.out.println("Wait for 10 seconds, before sending updMetas");
 		Thread.sleep(10000);
-		for (DelayedOps d : delayedadds) {
+		for (DelayedOps d : delayedupds) {
 		    OperationFuture<Boolean> updm = _dclient.setWithMeta(d.getkey(), d.getval(), d.getmeta(), 0);
 		    if (updm.get().booleanValue())
 			sh.storeinDTable(d.getkey(), d.getval(), null);

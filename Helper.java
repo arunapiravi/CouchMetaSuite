@@ -103,20 +103,6 @@ public class Helper {
 		Thread.sleep(5000);
 	    }
 
-	    // Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
-	    System.out.println(">> Launching Updates .. ( " + Math.round(sh.getItemcount() * sh.getUpdRatio()) + " items )");
-	    Updrunner.upds(sh, source_client, destination_client, _prefix1);
-	    System.out.println(">> Completed Updates ..");
-	    Thread.sleep(5000);
-
-	    if (sh.getbiXDCR()) {
-		System.out.println("biXDCR: Front end on destination ..");
-		System.out.println(">> Launching Updates .. ( " + Math.round(sh.getItemcount() * sh.getUpdRatio()) + " items )");
-		Updrunner.upds(sh, destination_client, source_client, _prefix2);
-		System.out.println(">> Completed Updates ..");
-		Thread.sleep(5000);
-	    }
-
 	    // Operation that addrm's on source, and addwithMeta's on destination with the meta from addrm
 	    System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
 	    Addrunner.adds(sh, source_client, destination_client, _prefix1);
@@ -128,6 +114,20 @@ public class Helper {
 		System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
 		Addrunner.adds(sh, destination_client, source_client, _prefix2);
 		System.out.println(">> Completed Adds ..");
+		Thread.sleep(5000);
+	    }
+
+	    // Operation that updrm's on source, and setwithMeta's on destination with the meta from updrm
+	    System.out.println(">> Launching Updates .. ( " + Math.round((sh.getItemcount() + sh.getAddCount()) * sh.getUpdRatio()) + " items )");
+	    Updrunner.upds(sh, source_client, destination_client, _prefix1);
+	    System.out.println(">> Completed Updates ..");
+	    Thread.sleep(5000);
+
+	    if (sh.getbiXDCR()) {
+		System.out.println("biXDCR: Front end on destination ..");
+		System.out.println(">> Launching Updates .. ( " + Math.round((sh.getItemcount() + sh.getAddCount()) * sh.getUpdRatio()) + " items )");
+		Updrunner.upds(sh, destination_client, source_client, _prefix2);
+		System.out.println(">> Completed Updates ..");
 		Thread.sleep(5000);
 	    }
 	} else {
