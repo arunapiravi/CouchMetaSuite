@@ -15,6 +15,7 @@ COUCHBASE_META_OPERATIONS implementation:
     expiration-time:                ...expirtaion time
     del-ratio:                      ...ratio of item-count to be deleted (disjoint with exp-ratio)
     add-count:                      ...items to add
+    upd-ratio:                      ...ratio of item-count to be updated (with expiration time)
     replication-starts-first:       ...false => setm immediately after setrm
                                        true => setm's run after all setrm's + timed_wait (10s)
     biXDCR=false:			        ...set to true if biXDCR replication and front end needed on
