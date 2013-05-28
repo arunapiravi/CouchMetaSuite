@@ -16,6 +16,7 @@ public class Stronghold {
     private boolean _replicationFirst_flag;
     private boolean biXDCR;
     private boolean parallelFrontEnds;
+    private boolean _writetofile;
 
     public HashMap<String, Hashstructure> sourceContent = new HashMap<String, Hashstructure>();
     public HashMap<String, Hashstructure> destinationContent = new HashMap<String, Hashstructure>();
@@ -32,6 +33,7 @@ public class Stronghold {
 	_replicationFirst_flag = false;
 	biXDCR = false;
 	parallelFrontEnds = false;
+	_writetofile = false;
     }
 
     public void setMemquota(int quota) {
@@ -78,6 +80,10 @@ public class Stronghold {
 	parallelFrontEnds = flag;
     }
 
+    public void setaboutwrite (boolean flag) {
+	_writetofile = flag;
+    }
+
     public int getMemquota() {
 	return _memQuota;
     }
@@ -120,6 +126,10 @@ public class Stronghold {
 
     public boolean getparallel() {
 	return parallelFrontEnds;
+    }
+
+    public boolean iswritetofile() { 
+	return _writetofile;
     }
 
     public void storeinSTable(String K, String V, MetaData M) {

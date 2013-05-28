@@ -7,7 +7,7 @@ import org.codehaus.jettison.json.JSONObject;
 public class Spawner {
     public static JSONObject retrieveJSON(Random gen, int _itemSize) throws JSONException {
 	String _number = null;
-	String CHAR_LIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	String CHAR_LIST = "WXYZ";
 	Integer temp = gen.nextInt();
 	JSONObject jsonobj = null;
 	StringBuffer _padding = new StringBuffer();
