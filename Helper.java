@@ -76,44 +76,44 @@ public class Helper {
 
 	if (!sh.getparallel()) {
 	    // Operation that setrm's on source, and setwithMeta's on destination with the meta from setrm
-	    System.out.println(">> Launching Sets .. ( " + sh.getItemcount() + " items )");
+	    System.out.println(" >> Launching Sets .. ( " + sh.getItemcount() + " items )");
 	    Setrunner.sets(sh, source_client, destination_client, _prefix1);
-	    System.out.println(">> Completed Sets ..");
+	    System.out.println(" >> Completed Sets ..");
 	    Thread.sleep(5000);
 
 	    if (sh.getbiXDCR()) {
-		System.out.println("biXDCR: Front end on destination ..");
-		System.out.println(">> Launching Sets .. ( " + sh.getItemcount() + " items )");
+		System.out.println(" -biXDCR: Front end on destination ..");
+		System.out.println(" >> Launching Sets .. ( " + sh.getItemcount() + " items )");
 		Setrunner.sets(sh, destination_client, source_client, _prefix2);
-		System.out.println(">> Completed Sets ..");
+		System.out.println(" >> Completed Sets ..");
 		Thread.sleep(5000);
 	    }
 
 	    // Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
-	    System.out.println(">> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
+	    System.out.println(" >> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
 	    Delrunner.dels(sh, source_client, destination_client, _prefix1);
-	    System.out.println(">> Completed Deletes ..");
+	    System.out.println(" >> Completed Deletes ..");
 	    Thread.sleep(5000);
 
 	    if (sh.getbiXDCR()) {
-		System.out.println("biXDCR: Front end on destination ..");
-		System.out.println(">> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
+		System.out.println(" -biXDCR: Front end on destination ..");
+		System.out.println(" >> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
 		Delrunner.dels(sh, destination_client, source_client, _prefix2);
-		System.out.println(">> Completed Deletes ..");
+		System.out.println(" >> Completed Deletes ..");
 		Thread.sleep(5000);
 	    }
 
 	    // Operation that addrm's on source, and addwithMeta's on destination with the meta from addrm
-	    System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
+	    System.out.println(" >> Launching Adds .. ( " + sh.getAddCount() + " items )");
 	    Addrunner.adds(sh, source_client, destination_client, _prefix1);
-	    System.out.println(">> Completed Adds ..");
+	    System.out.println(" >> Completed Adds ..");
 	    Thread.sleep(5000);
 
 	    if (sh.getbiXDCR()) {
-		System.out.println("biXDCR: Front end on destination ..");
-		System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
+		System.out.println(" -biXDCR: Front end on destination ..");
+		System.out.println(" >> Launching Adds .. ( " + sh.getAddCount() + " items )");
 		Addrunner.adds(sh, destination_client, source_client, _prefix2);
-		System.out.println(">> Completed Adds ..");
+		System.out.println(" >> Completed Adds ..");
 		Thread.sleep(5000);
 	    }
 	} else {
@@ -122,7 +122,7 @@ public class Helper {
 	}
 
 	// VERIFICATION
-	//System.out.println("Starting the verification stage .. ");
+	//System.out.println(" --> Starting the verification stage .. ");
 	//Verification.comparison(sh, source_client, destination_client);
 	System.out.println(" -< THE VERIFICATION MODULE <yet to be implemented >- ");
 
