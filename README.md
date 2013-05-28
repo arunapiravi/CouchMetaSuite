@@ -21,6 +21,9 @@ COUCHBASE_META_OPERATIONS implementation:
     				                   destination as well
     parallelFrontEnds		        ...leave at false for now, to_be_implemented: Front end to
     				                   run parallely on source and destination if set to true
+    doVerify                        ...to run or to not run verification module
+    write-date-to-file              ...to write or to not write all data content to log files in 
+                                       verification module
 
 ORDER OF EXECUTION:
 
@@ -28,7 +31,7 @@ ORDER OF EXECUTION:
     - All the sets
     - All the deletes
     - All the adds
-    - Verification (To be implemented)
+    - Verification
 
 NOTE:
 
