@@ -61,9 +61,11 @@ FILES:
                                        hashtables used in verification
     Delrunner                       ...Class that runs deletes, will populate hashtables used in 
                                        verification, del-ratio works on item-count for now
-    Verification                    ...To be implemented, to retrieve MetaData of all items from
-                                       destination, repopulate destination's hashtable, and compare
-                                       the source's and destination's hashtables
+    Updrunner                       ...Class that runs updates, updates upd-ratio number of items
+                                       on (item-count + add-count)
+    Verification                    ...Retrieve Data and MetaData of all items from destination,
+                                       repopulates destination's hashtable, and compares the 
+                                       source's and destination's hashtables
     
     Stronghold                      ...Stores attributes retrieved from test.properties, hashtables
                                        used in verification declared here
