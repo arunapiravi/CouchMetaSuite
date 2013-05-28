@@ -76,6 +76,7 @@ public class Helper {
 
 	if (!sh.getparallel()) {
 	    // Operation that setrm's on source, and setwithMeta's on destination with the meta from setrm
+	    System.out.println("Front end on source ..");
 	    System.out.println(">> Launching Sets .. ( " + sh.getItemcount() + " items )");
 	    Setrunner.sets(sh, source_client, destination_client, _prefix1);
 	    System.out.println(">> Completed Sets ..");
@@ -90,6 +91,7 @@ public class Helper {
 	    }
 
 	    // Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
+	    System.out.println("Front end on source ..");
 	    System.out.println(">> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
 	    Delrunner.dels(sh, source_client, destination_client, _prefix1);
 	    System.out.println(">> Completed Deletes ..");
@@ -104,6 +106,7 @@ public class Helper {
 	    }
 
 	    // Operation that addrm's on source, and addwithMeta's on destination with the meta from addrm
+	    System.out.println("Front end on source ..");
 	    System.out.println(">> Launching Adds .. ( " + sh.getAddCount() + " items )");
 	    Addrunner.adds(sh, source_client, destination_client, _prefix1);
 	    System.out.println(">> Completed Adds ..");
@@ -118,6 +121,7 @@ public class Helper {
 	    }
 
 	    // Operation that updrm's on source, and setwithMeta's on destination with the meta from updrm
+	    System.out.println("Front end on source ..");
 	    System.out.println(">> Launching Updates .. ( " + Math.round((sh.getItemcount() + sh.getAddCount()) * sh.getUpdRatio()) + " items )");
 	    Updrunner.upds(sh, source_client, destination_client, _prefix1);
 	    System.out.println(">> Completed Updates ..");
@@ -139,6 +143,8 @@ public class Helper {
 	if (sh.getdoVerify()) {
 	    System.out.println("Starting the verification stage .. ");
 	    Verification.comparison(sh, source_client, destination_client);
+	    if (sh.getbiXDCR()) 
+		Verification.comparison(sh, destination_client, source_client);
 	} else
 	    System.out.println("Skipping the verification stage\n");
 
