@@ -45,8 +45,11 @@ COMPILE / EXECUTION Instructions:
     To execute:
     make run
 
-    To clean Class files:
+    To remove .class files:
     make clean
+
+    To remove log.txt files:
+    make removelogs
 
 FILES:
 

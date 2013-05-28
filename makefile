@@ -6,3 +6,6 @@ run:
 
 clean:
 	rm -rf *.class
+
+removelogs:
+	rm -rf *log.txt
