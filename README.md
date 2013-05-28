@@ -17,12 +17,12 @@ COUCHBASE_META_OPERATIONS implementation:
     add-count:                      ...items to add
     replication-starts-first:       ...false => setm immediately after setrm
                                        true => setm's run after all setrm's + timed_wait (10s)
-    biXDCR			                ...set to true if biXDCR replication and front end needed on
+    biXDCR=false:			        ...set to true if biXDCR replication and front end needed on
     				                   destination as well
-    parallelFrontEnds		        ...leave at false for now, to_be_implemented: Front end to
+    parallelFrontEnds=false:	    ...leave at false for now, to_be_implemented: Front end to
     				                   run parallely on source and destination if set to true
-    doVerify                        ...to run or to not run verification module
-    write-date-to-file              ...to write or to not write all data content to log files in 
+    doVerify=true:                  ...to run or to not run verification module
+    write-date-to-file=true:        ...to write or to not write all data content to log files in 
                                        verification module
 
 ORDER OF EXECUTION:
