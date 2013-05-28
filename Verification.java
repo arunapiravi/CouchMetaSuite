@@ -17,7 +17,7 @@ public class Verification {
 	    populate_destTable(sh, dclient);
 
 	    if (sh.iswritetofile()) {
-		System.out.println("Writing data to file data_log.txt");
+		System.out.println("Writing data to files source_data_log.txt and destination_data_log.txt");
 		File file1 = new File("source_data_log.txt");
 		File file2 = new File("destination_data_log.txt");
 		if (file1.exists())
@@ -28,7 +28,7 @@ public class Verification {
 		file2.createNewFile();
 		FileWriter fw1 = new FileWriter(file1.getAbsolutePath());
 		BufferedWriter bw1 = new BufferedWriter(fw1);
-		FileWriter fw2 = new FileWriter(file1.getAbsolutePath());
+		FileWriter fw2 = new FileWriter(file2.getAbsolutePath());
 		BufferedWriter bw2 = new BufferedWriter(fw2);
 		Iterator it1 = sh.sourceContent.entrySet().iterator();
 		Iterator it2 = sh.destinationContent.entrySet().iterator();
