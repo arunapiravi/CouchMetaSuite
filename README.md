@@ -64,8 +64,8 @@ FILES:
     Updrunner                       ...Class that runs updates, updates upd-ratio number of items
                                        on (item-count + add-count)
     Verification                    ...Retrieve Data and MetaData of all items from destination,
-                                       repopulates destination's hashtable, and compares the 
-                                       source's and destination's hashtables
+                                       repopulate destination's hashtable, and compare source's
+                                       and destination's hashtables
     
     Stronghold                      ...Stores attributes retrieved from test.properties, hashtables
                                        used in verification declared here
