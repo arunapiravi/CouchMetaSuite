@@ -15,8 +15,8 @@ COUCHBASE_META_OPERATIONS implementation:
     expiration-time:                ...expirtaion time
     del-ratio:                      ...ratio of item-count to be deleted (disjoint with exp-ratio)
     add-count:                      ...items to add
-    replication-starts-first:       ...false => setm immediaetly after setrm
-                                       true => setms run after all setrms + timed_wait (10s)
+    replication-starts-first:       ...false => setm immediately after setrm
+                                       true => setm's run after all setrm's + timed_wait (10s)
     biXDCR			                ...set to true if biXDCR replication and front end needed on
     				                   destination as well
     parallelFrontEnds		        ...leave at false for now, to_be_implemented: Front end to
@@ -31,7 +31,7 @@ ORDER OF EXECUTION:
     - All the sets
     - All the deletes
     - All the adds
-    - Verification
+    - Verification (if flag set to true)
 
 NOTE:
 
