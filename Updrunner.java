@@ -36,7 +36,7 @@ public class Updrunner {
 		String key = String.format("%s%d", prefix, i);
 		if (sh.isJson()) {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
-		    updrm = _sclient.setReturnMeta(key, 0, 0, _val.toString());
+		    updrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, _val.toString());
 		    assert(updrm.get() != null);
 		    sh.storeinSTable(key, _val.toString(), updrm.get());
 		    if (sh.getReplicationFlag()) {
@@ -53,7 +53,7 @@ public class Updrunner {
 			sh.storeinDTable(key, _val.toString(), null);
 		    }
 		} else {
-		    updrm = _sclient.addReturnMeta(key, 0, value.toString());
+		    updrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, value.toString());
 		    assert(updrm.get() != null);
 		    sh.storeinSTable(key, value.toString(), updrm.get());
 		    if (sh.getReplicationFlag()) {
