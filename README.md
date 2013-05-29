@@ -28,10 +28,11 @@ COUCHBASE_META_OPERATIONS implementation:
 
 ORDER OF EXECUTION:
 
-    - Program prompts user to setup cluster, the bucket, replication
+    - Program prompts user to setup cluster, the bucket, replication(s)
     - All the sets
     - All the deletes
     - All the adds
+    - All the updates
     - Verification (if flag set to true)
 
 NOTE:
