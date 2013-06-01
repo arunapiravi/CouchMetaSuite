@@ -62,7 +62,7 @@ public class Verification {
 			    // In case of deleted items, in which case data is set to null
 			    if (!(sh.destinationContent.get(htEntries.getKey()).readmetadata().equals(htEntries.getValue().readmetadata()))) {
 				BADflag = 1;
-				System.out.println("First mismatch detected at Key: " + htEntries.getKey());
+				System.out.println("Mismatch detected for deleted item with Key: " + htEntries.getKey());
 			    }
 			    continue;
 			}
