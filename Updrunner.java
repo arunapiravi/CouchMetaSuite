@@ -38,7 +38,8 @@ public class Updrunner {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    updrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, _val.toString());
 		    assert(updrm.get() != null);
-		    sh.storeinSTable(key, _val.toString(), updrm.get());
+		    if (sh.getdoVerify())
+			sh.storeinSTable(key, _val.toString(), updrm.get());
 		    if (sh.getReplicationFlag()) {
 			delayedupds.add(new DelayedOps(key, _val.toString(), updrm.get()));
 		    } else {
@@ -50,12 +51,14 @@ public class Updrunner {
 				System.out.println("Reason: " + updm.getStatus().getMessage());
 			}
 			assert(updm.get().booleanValue());
-			sh.storeinDTable(key, _val.toString(), null);
+			if (sh.getdoVerify())
+			    sh.storeinDTable(key, _val.toString(), null);
 		    }
 		} else {
 		    updrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, value.toString());
 		    assert(updrm.get() != null);
-		    sh.storeinSTable(key, value.toString(), updrm.get());
+		    if (sh.getdoVerify())
+			sh.storeinSTable(key, value.toString(), updrm.get());
 		    if (sh.getReplicationFlag()) {
 			delayedupds.add(new DelayedOps(key, value.toString(), updrm.get()));
 		    } else {
@@ -67,7 +70,8 @@ public class Updrunner {
 				System.out.println("Reason: " + updm.getStatus().getMessage());
 			}
 			assert(updm.get().booleanValue());			    
-			sh.storeinDTable(key, value.toString(), null);
+			if (sh.getdoVerify())
+			    sh.storeinDTable(key, value.toString(), null);
 		    }
 		}
 		creates.add(updrm);
@@ -78,7 +82,8 @@ public class Updrunner {
 		Thread.sleep(10000);
 		for (DelayedOps d : delayedupds) {
 		    OperationFuture<Boolean> updm = _dclient.setWithMeta(d.getkey(), d.getval(), d.getmeta(), 0);
-		    if (updm.get().booleanValue())
+		    assert(updm.get().booleanValue());
+		    if (sh.getdoVerify())
 			sh.storeinDTable(d.getkey(), d.getval(), null);
 		}
 	    }

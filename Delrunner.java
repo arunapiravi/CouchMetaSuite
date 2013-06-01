@@ -22,7 +22,8 @@ public class Delrunner {
 		String key = String.format("%s%d", prefix, i);
 		delrm = _sclient.deleteReturnMeta(key, 0);
 		assert(delrm.get() != null);
-		sh.storeinSTable(key, null, delrm.get());
+		if (sh.getdoVerify())
+		    sh.storeinSTable(key, null, delrm.get());
 		if (sh.getReplicationFlag()) {
 		    delayeddels.add(new DelayedOps(key, null, delrm.get()));
 		} else {
@@ -34,7 +35,8 @@ public class Delrunner {
 			    System.out.println("Reason: " + delm.getStatus().getMessage());
 		    }
 		    assert(delm.get().booleanValue());
-		    sh.storeinDTable(key, null, null);
+		    if (sh.getdoVerify())
+			sh.storeinDTable(key, null, null);
 		}
 	    }
 
@@ -44,7 +46,8 @@ public class Delrunner {
 		for (DelayedOps d : delayeddels) {
 		    OperationFuture<Boolean> delm = _dclient.deleteWithMeta(d.getkey(), d.getmeta(), 0);
 		    assert(delm.get().booleanValue());
-		    sh.storeinDTable(d.getkey(), null, null);
+		    if (sh.getdoVerify())
+			sh.storeinDTable(d.getkey(), null, null);
 		}
 	    }
 	}

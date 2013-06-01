@@ -38,7 +38,8 @@ public class Setrunner {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    setrm = _sclient.setReturnMeta(key, 0, 0, _val.toString());
 		    assert(setrm.get() != null);
-		    sh.storeinSTable(key, _val.toString(), setrm.get());
+		    if (sh.getdoVerify())
+			sh.storeinSTable(key, _val.toString(), setrm.get());
 		    if (sh.getReplicationFlag()) {
 			delayedsets.add(new DelayedOps(key, _val.toString(), setrm.get()));
 		    } else {
@@ -50,12 +51,14 @@ public class Setrunner {
 				System.out.println("Reason: " + setm.getStatus().getMessage());
 			}
 			assert(setm.get().booleanValue());
-			sh.storeinDTable(key, _val.toString(), null);
+			if (sh.getdoVerify())
+			    sh.storeinDTable(key, _val.toString(), null);
 		    }
 		} else {
 		    setrm = _sclient.setReturnMeta(key, 0, 0, value.toString());
 		    assert(setrm.get() != null);
-		    sh.storeinSTable(key, value.toString(), setrm.get());
+		    if (sh.getdoVerify())
+			sh.storeinSTable(key, value.toString(), setrm.get());
 		    if (sh.getReplicationFlag()) {
 			delayedsets.add(new DelayedOps(key, value.toString(), setrm.get()));
 		    } else {
@@ -67,7 +70,8 @@ public class Setrunner {
 				System.out.println("Reason: " + setm.getStatus().getMessage());
 			}
 			assert(setm.get().booleanValue());
-			sh.storeinDTable(key, value.toString(), null);
+			if (sh.getdoVerify())
+			    sh.storeinDTable(key, value.toString(), null);
 		    }
 		}
 		creates.add(setrm);
@@ -80,7 +84,8 @@ public class Setrunner {
 		    JSONObject _val = Spawner.retrieveJSON(gen, sh.getItemsize());
 		    setrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, _val.toString());
 		    assert(setrm.get() != null);
-		    sh.storeinSTable(key, _val.toString(), setrm.get());
+		    if (sh.getdoVerify())
+			sh.storeinSTable(key, _val.toString(), setrm.get());
 		    if (sh.getReplicationFlag()) {
 			delayedsets.add(new DelayedOps(key, _val.toString(), setrm.get()));
 		    } else {
@@ -92,12 +97,14 @@ public class Setrunner {
 				System.out.println("Reason: " + setm.getStatus().getMessage());
 			}
 			assert(setm.get().booleanValue());
-			sh.storeinDTable(key, _val.toString(), null);
+			if (sh.getdoVerify())
+			    sh.storeinDTable(key, _val.toString(), null);
 		    }
 		} else {
 		    setrm = _sclient.setReturnMeta(key, sh.getExpiration(), 0, value.toString());
 		    assert(setrm.get() != null);
-		    sh.storeinSTable(key, value.toString(), setrm.get());
+		    if (sh.getdoVerify())
+			sh.storeinSTable(key, value.toString(), setrm.get());
 		    if (sh.getReplicationFlag()) {
 			delayedsets.add(new DelayedOps(key, value.toString(), setrm.get()));
 		    } else {
@@ -109,7 +116,8 @@ public class Setrunner {
 				System.out.println("Reason: " + setm.getStatus().getMessage());
 			}
 			assert(setm.get().booleanValue());
-			sh.storeinDTable(key, value.toString(), null);
+			if (sh.getdoVerify())
+			    sh.storeinDTable(key, value.toString(), null);
 		    }
 		}
 		creates.add(setrm);
@@ -121,7 +129,8 @@ public class Setrunner {
 		for (DelayedOps d : delayedsets) {
 		    OperationFuture<Boolean> setm = _dclient.setWithMeta(d.getkey(), d.getval(), d.getmeta(), 0);
 		    assert(setm.get().booleanValue());
-		    sh.storeinDTable(d.getkey(), d.getval(), null);
+		    if (sh.getdoVerify())
+			sh.storeinDTable(d.getkey(), d.getval(), null);
 		}
 	    }
 
