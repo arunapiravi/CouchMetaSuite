@@ -1,3 +1,4 @@
+package src;
 
 public class Hashstructure {
 	public final String _data;

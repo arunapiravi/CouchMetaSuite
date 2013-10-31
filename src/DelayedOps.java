@@ -1,5 +1,6 @@
-import com.couchbase.client.MetaData;
+package src;
 
+import com.couchbase.client.MetaData;
 
 public class DelayedOps {
 	public final String KEY;
