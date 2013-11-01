@@ -15,7 +15,8 @@ COUCHBASE_META_OPERATIONS implementation:
     expiration-time:                ...expirtaion time
     del-ratio:                      ...ratio of item-count to be deleted (disjoint with exp-ratio)
     add-count:                      ...items to add
-    upd-ratio:                      ...ratio of item-count + add-count to be updated (with expiration time)
+    upd-ratio:                      ...ratio of item-count + add-count to be updated
+                                       (with expiration time)
     replication-starts-first:       ...false => setm immediately after setrm
                                        true => setm's run after all setrm's + timed_wait (10s)
     biXDCR=false:			        ...set to true if biXDCR replication and front end needed on
@@ -73,10 +74,11 @@ FILES:
     Hashstructure                   ...Hashtables (used in verification) will have key as the item's
                                        key, and value as an instance of this class (which contains 
                                        the document and metadata)
-    DelayedOps                      ...In case of replication-starts-first flag set to true, an arraylist
-                                       with data being an instance of this class (which contains key, 
-                                       value, metadata) is populated for setWithMeta commands to run once
-                                       all the setReturnMetas complete + a timeout threshold of 10s
+    DelayedOps                      ...In case of replication-starts-first flag set to true, an
+                                       arraylist with data being an instance of this class (which
+                                       contains key, value, metadata) is populated for setWithMeta
+                                       commands to run once all the setReturnMetas complete + a timeout
+                                       threshold of 10s
     
     Spawner                         ...Creates JSON documents if json set to true in test.properties
     ClusterSetup                    ...To setup the cluster based on specifications (NOT IN USE)
