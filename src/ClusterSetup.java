@@ -18,6 +18,10 @@ import org.codehaus.jettison.json.JSONObject;
 import com.couchbase.client.ClusterManager;
 import com.couchbase.client.clustermanager.BucketType;
 
+/*
+ * WORK IN PROGRESS
+ */
+
 public class ClusterSetup {
 
 	/*
