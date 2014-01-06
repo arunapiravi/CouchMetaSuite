@@ -1,17 +1,17 @@
 COUCHBASE_META_OPERATIONS implementation:
 
     Specify cluster-load details in test.properties
-                               
+
     source/destination:             ...source/destination-node(s), seperated by ","
     source-port/destination-port:   ...couchbase port
     bucket-name:                    ...name of bucket
     bucket-password:                ...bucket's password
-    bucket-memQuota:                ...bucket's memQuota (automation not yet) 
+    bucket-memQuota:                ...bucket's memQuota (automation not yet)
     json=false:                     ...doesn't spawn JSON values
     item-count:                     ...no. of sets
-    item-size:                      ...size of each item (approximation) 
-    prefix:                         ...prefix of generated keys 
-    exp-ratio:                      ...ratio of item-count to be expired 
+    item-size:                      ...size of each item (approximation)
+    prefix:                         ...prefix of generated keys
+    exp-ratio:                      ...ratio of item-count to be expired
     expiration-time:                ...expirtaion time
     del-ratio:                      ...ratio of item-count to be deleted (disjoint with exp-ratio)
     add-count:                      ...items to add
@@ -19,12 +19,11 @@ COUCHBASE_META_OPERATIONS implementation:
                                        (with expiration time)
     replication-starts-first:       ...false => setm immediately after setrm
                                        true => setm's run after all setrm's + timed_wait (10s)
-    biXDCR=false:			        ...set to true if biXDCR replication and front end needed on
-    				                   destination as well
-    parallelFrontEnds=false:	    ...leave at false for now, to_be_implemented: Front end to
-    				                   run parallely on source and destination if set to true
+    biXDCR=false:                   ...set to true if biXDCR replication and front end needed on
+                                       destination as well
+    parallelFrontEnds=false:        ...Front end to run parallely on src and dest if set to true
     doVerify=true:                  ...to run or to not run verification module
-    write-date-to-file=true:        ...to write or to not write all data content to log files in 
+    write-date-to-file=true:        ...to write or to not write all data content to log files in
                                        verification module
 
 ORDER OF EXECUTION:
@@ -61,24 +60,24 @@ FILES:
                                        hashtables used in verification
     Addrunner                       ...Class that runs adds, be it with expires or not, will populate
                                        hashtables used in verification
-    Delrunner                       ...Class that runs deletes, will populate hashtables used in 
+    Delrunner                       ...Class that runs deletes, will populate hashtables used in
                                        verification, del-ratio works on item-count for now
     Updrunner                       ...Class that runs updates, updates upd-ratio number of items
                                        on (item-count + add-count)
     Verification                    ...Retrieve Data and MetaData of all items from destination,
                                        repopulate destination's hashtable, and compare source's
                                        and destination's hashtables
-    
+
     Stronghold                      ...Stores attributes retrieved from test.properties, hashtables
                                        used in verification declared here
     Hashstructure                   ...Hashtables (used in verification) will have key as the item's
-                                       key, and value as an instance of this class (which contains 
+                                       key, and value as an instance of this class (which contains
                                        the document and metadata)
     DelayedOps                      ...In case of replication-starts-first flag set to true, an
                                        arraylist with data being an instance of this class (which
                                        contains key, value, metadata) is populated for setWithMeta
                                        commands to run once all the setReturnMetas complete + a timeout
                                        threshold of 10s
-    
+
     Spawner                         ...Creates JSON documents if json set to true in test.properties
     ClusterSetup                    ...To setup the cluster based on specifications (NOT IN USE)
