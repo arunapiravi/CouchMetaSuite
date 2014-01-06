@@ -31,7 +31,7 @@ public class Helper {
 
     public static void main(String args[]) throws MalformedURLException, IOException, JSONException, InterruptedException, ExecutionException {
 
-        final Stronghold sh = new Stronghold();
+        Stronghold sh = new Stronghold();
 
         try {
             File file = new File("test.properties");
@@ -69,6 +69,8 @@ public class Helper {
         // Connection to source's and destination's bucket
         final CouchbaseMetaClient source_client = connect(_sourceNodes[0], _sourcePort);
         final CouchbaseMetaClient destination_client = connect(_destinationNodes[0], _destinationPort);
+
+        final Stronghold stho = sh;
 
         if (sh.getReplicationFlag()) {
             System.out.println("\n--> OperationsWithMetas sent once all the OperationReturnMetas are complete.");
@@ -144,23 +146,23 @@ public class Helper {
                 public void run() {
                     try {
                         // Operation that setrm's on source, and setwithMeta's on destination with the meta from setrm
-                        System.out.println("Front end on source ..\n>> Launching Sets .. ( " + sh.getItemcount() + " items )");
-                        Setrunner.sets(sh, source_client, destination_client, _prefix1);
+                        System.out.println("Front end on source ..\n>> Launching Sets .. ( " + stho.getItemcount() + " items )");
+                        Setrunner.sets(stho, source_client, destination_client, _prefix1);
                         System.out.println(">> Completed Sets on source..");
                         Thread.sleep(5000);
                         // Operation that delrm's on source, and delwithMeta's on destination with the meta from delrm
-                        System.out.println("Front end on source ..\n>> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
-                        Delrunner.dels(sh, source_client, destination_client, _prefix1);
+                        System.out.println("Front end on source ..\n>> Launching Deletes .. ( " + Math.round(stho.getItemcount() * stho.getDelRatio()) + " items )");
+                        Delrunner.dels(stho, source_client, destination_client, _prefix1);
                         System.out.println(">> Completed Deletes on source..");
                         Thread.sleep(5000);
                         // Operation that addrm's on source, and addwithMeta's on destination with the meta from addrm
-                        System.out.println("Front end on source ..\n>> Launching Adds .. ( " + sh.getAddCount() + " items )");
-                        Addrunner.adds(sh, source_client, destination_client, _prefix1);
+                        System.out.println("Front end on source ..\n>> Launching Adds .. ( " + stho.getAddCount() + " items )");
+                        Addrunner.adds(stho, source_client, destination_client, _prefix1);
                         System.out.println(">> Completed Adds on source..");
                         Thread.sleep(5000);
                         // Operation that updrm's on source, and setwithMeta's on destination with the meta from updrm
-                        System.out.println("Front end on source ..\n>> Launching Updates .. ( " + Math.round((sh.getItemcount() + sh.getAddCount()) * sh.getUpdRatio()) + " items )");
-                        Updrunner.upds(sh, source_client, destination_client, _prefix1);
+                        System.out.println("Front end on source ..\n>> Launching Updates .. ( " + Math.round((stho.getItemcount() + stho.getAddCount()) * stho.getUpdRatio()) + " items )");
+                        Updrunner.upds(stho, source_client, destination_client, _prefix1);
                         System.out.println(">> Completed Updates on source..");
                         Thread.sleep(5000);
 
@@ -174,20 +176,20 @@ public class Helper {
             Runnable _destination_control_ = new Runnable() {
                 public void run() {
                     try {
-                        System.out.println("biXDCR: Front end on destination ..\n>> Launching Sets .. ( " + sh.getItemcount() + " items )");
-                        Setrunner.sets(sh, destination_client, source_client, _prefix2);
+                        System.out.println("biXDCR: Front end on destination ..\n>> Launching Sets .. ( " + stho.getItemcount() + " items )");
+                        Setrunner.sets(stho, destination_client, source_client, _prefix2);
                         System.out.println(">> Completed Sets on destination..");
                         Thread.sleep(5000);
-                        System.out.println("biXDCR: Front end on destination ..\n>> Launching Deletes .. ( " + Math.round(sh.getItemcount() * sh.getDelRatio()) + " items )");
-                        Delrunner.dels(sh, destination_client, source_client, _prefix2);
+                        System.out.println("biXDCR: Front end on destination ..\n>> Launching Deletes .. ( " + Math.round(stho.getItemcount() * stho.getDelRatio()) + " items )");
+                        Delrunner.dels(stho, destination_client, source_client, _prefix2);
                         System.out.println(">> Completed Deletes on destination..");
                         Thread.sleep(5000);
-                        System.out.println("biXDCR: Front end on destination ..\n>> Launching Adds .. ( " + sh.getAddCount() + " items )");
-                        Addrunner.adds(sh, destination_client, source_client, _prefix2);
+                        System.out.println("biXDCR: Front end on destination ..\n>> Launching Adds .. ( " + stho.getAddCount() + " items )");
+                        Addrunner.adds(stho, destination_client, source_client, _prefix2);
                         System.out.println(">> Completed Adds on destination..");
                         Thread.sleep(5000);
-                        System.out.println("biXDCR: Front end on destination ..>> Launching Updates .. ( " + Math.round((sh.getItemcount() + sh.getAddCount()) * sh.getUpdRatio()) + " items )");
-                        Updrunner.upds(sh, destination_client, source_client, _prefix2);
+                        System.out.println("biXDCR: Front end on destination ..>> Launching Updates .. ( " + Math.round((stho.getItemcount() + stho.getAddCount()) * stho.getUpdRatio()) + " items )");
+                        Updrunner.upds(stho, destination_client, source_client, _prefix2);
                         System.out.println(">> Completed Updates on destination..");
                         Thread.sleep(5000);
 
