@@ -26,150 +26,150 @@ public class Stronghold {
     public HashMap<String, Hashstructure> destinationContent = new HashMap<String, Hashstructure>();
 
     public Stronghold () {
-	_memQuota = 2000;
-	_json = false;
-	_itemCount = 10000;
-	_itemSize = 256;
-	_expRatio = 0.0;
-	_expiration = 0;
-	_delRatio = 0.0;
-	_addCount = 0;
-	_updRatio = 0.0;
-	_replicationFirst_flag = false;
-	biXDCR = false;
-	parallelFrontEnds = false;
-	_writetofile = false;
-	_doVerify = false;
+        _memQuota = 2000;
+        _json = false;
+        _itemCount = 10000;
+        _itemSize = 256;
+        _expRatio = 0.0;
+        _expiration = 0;
+        _delRatio = 0.0;
+        _addCount = 0;
+        _updRatio = 0.0;
+        _replicationFirst_flag = false;
+        biXDCR = false;
+        parallelFrontEnds = false;
+        _writetofile = false;
+        _doVerify = false;
     }
 
     public void setMemquota(int quota) {
-	_memQuota = quota;
+        _memQuota = quota;
     }
 
     public void setJson(boolean flag) {
-	_json = flag;
+        _json = flag;
     }
 
     public void setItemcount(int count) {
-	_itemCount = count;
+        _itemCount = count;
     }
 
     public void setSize(int size) {
-	_itemSize = size;
+        _itemSize = size;
     }
 
     public void setExpRatio(double expires) {
-	_expRatio = expires;
+        _expRatio = expires;
     }
 
     public void setExpiration(int exp) {
-	_expiration = exp;
+        _expiration = exp;
     }
 
     public void setDelRatio(double del) {
-	_delRatio = del;
+        _delRatio = del;
     }
 
     public void setAddCount(int addcount) {
-	_addCount = addcount;
+        _addCount = addcount;
     }
 
     public void setUpdRatio(double upd) {
-	_updRatio = upd;
+        _updRatio = upd;
     }
 
     public void setReplicationFlag(boolean flag) {
-	_replicationFirst_flag = flag;
+        _replicationFirst_flag = flag;
     }
 
     public void setbiXDCR (boolean flag) {
-	biXDCR = flag;
+        biXDCR = flag;
     }
 
     public void setparallel (boolean flag) {
-	parallelFrontEnds = flag;
+        parallelFrontEnds = flag;
     }
 
     public void setdoVerify (boolean flag) {
-	_doVerify = flag;
+        _doVerify = flag;
     }
 
     public void setaboutwrite (boolean flag) {
-	_writetofile = flag;
+        _writetofile = flag;
     }
 
     public int getMemquota() {
-	return _memQuota;
+        return _memQuota;
     }
 
     public boolean isJson() {
-	return _json;
+        return _json;
     }
 
     public int getItemcount() {
-	return _itemCount;
+        return _itemCount;
     }
 
     public int getItemsize() {
-	return _itemSize;
+        return _itemSize;
     }
 
     public double getExpRatio() {
-	return _expRatio;
+        return _expRatio;
     }
 
     public int getExpiration() {
-	return _expiration;
+        return _expiration;
     }
 
     public double getDelRatio() {
-	return _delRatio;
+        return _delRatio;
     }
 
     public int getAddCount() {
-	return _addCount;
+        return _addCount;
     }
 
     public double getUpdRatio() {
-	return _updRatio;
+        return _updRatio;
     }
 
     public boolean getReplicationFlag() {
-	return _replicationFirst_flag;
+        return _replicationFirst_flag;
     }
 
     public boolean getbiXDCR() {
-	return biXDCR;
+        return biXDCR;
     }
 
     public boolean getparallel() {
-	return parallelFrontEnds;
+        return parallelFrontEnds;
     }
 
     public boolean getdoVerify() {
-	return _doVerify;
+        return _doVerify;
     }
 
-    public boolean iswritetofile() { 
-	return _writetofile;
+    public boolean iswritetofile() {
+        return _writetofile;
     }
 
     public void storeinSTable(String K, String V, MetaData M) {
-	sourceContent.put(K, new Hashstructure(V, M.toString()));
+        sourceContent.put(K, new Hashstructure(V, M.toString()));
     }
 
     public Hashstructure retrievefromSTable(String K) {
-	return sourceContent.get(K);
+        return sourceContent.get(K);
     }
 
     public void storeinDTable(String K, String V, MetaData M) {
-	if (M == null)
-	    destinationContent.put(K, new Hashstructure(V, null));
-	else
-	    destinationContent.put(K, new Hashstructure(V, M.toString()));
+        if (M == null)
+            destinationContent.put(K, new Hashstructure(V, null));
+        else
+            destinationContent.put(K, new Hashstructure(V, M.toString()));
     }
 
     public Hashstructure retrievefromDTable(String K) {
-	return destinationContent.get(K);
+        return destinationContent.get(K);
     }
 }
