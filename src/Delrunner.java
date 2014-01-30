@@ -30,7 +30,7 @@ public class Delrunner {
                 delayeddels.add(new DelayedOps(key, null, delrm.get()));
             } else {
                 try {
-                    delm = _dclient.deleteWithMeta(key, delrm.get(), 0);
+                    //delm = _dclient.deleteWithMeta(key, delrm.get(), 0);
                 } catch (Exception e) {
                     System.out.println("Delete failed at destination, either because MetaData wasn't retreived from setrm");
                     if (delm.get().booleanValue() == true)
