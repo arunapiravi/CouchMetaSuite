@@ -46,7 +46,7 @@ public class Addrunner {
                     delayedadds.add(new DelayedOps(key, _val.toString(), addrm.get()));
                 } else {
                     try {
-                        addm = _dclient.setWithMeta(key, _val.toString(), addrm.get(), 0);
+                        //addm = _dclient.setWithMeta(key, _val.toString(), addrm.get(), 0);
                     } catch (Exception e) {
                         System.out.println("Add failed at destination, either because MetaData wasn't retreived from setrm");
                         if (addm.get().booleanValue() == false)
