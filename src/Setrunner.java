@@ -65,7 +65,7 @@ public class Setrunner {
                     delayedsets.add(new DelayedOps(key, value.toString(), setrm.get()));
                 } else {
                     try {
-                        setm = _dclient.setWithMeta(key, value.toString(), setrm.get(), 0);
+                       // setm = _dclient.setWithMeta(key, value.toString(), setrm.get(), 0);
                     } catch (Exception e) {
                         System.out.println("Set failed at destination, either because MetaData wasn't retreived from setrm");
                         if (setm.get().booleanValue() == false)
