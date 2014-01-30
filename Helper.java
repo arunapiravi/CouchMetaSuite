@@ -125,11 +125,11 @@ public class Helper {
             }
 
             // Operation that updrm's on source, and setwithMeta's on destination with the meta from updrm
-            System.out.println("Front end on source ..");
-            System.out.println(">> Launching Updates .. ( " + Math.round((sh.getItemcount() + sh.getAddCount()) * sh.getUpdRatio()) + " items )");
-            Updrunner.upds(sh, source_client, destination_client, _prefix1);
-            System.out.println(">> Completed Updates ..");
-            Thread.sleep(5000);
+            //System.out.println("Front end on source ..");
+            //System.out.println(">> Launching Updates .. ( " + Math.round((sh.getItemcount() + sh.getAddCount()) * sh.getUpdRatio()) + " items )");
+            //Updrunner.upds(sh, source_client, destination_client, _prefix1);
+            //System.out.println(">> Completed Updates ..");
+            //Thread.sleep(5000);
 
             if (sh.getbiXDCR()) {
                 System.out.println("biXDCR: Front end on destination ..");
