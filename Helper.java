@@ -161,10 +161,10 @@ public class Helper {
                         System.out.println(">> Completed Adds on source..");
                         Thread.sleep(5000);
                         // Operation that updrm's on source, and setwithMeta's on destination with the meta from updrm
-                        System.out.println("Front end on source ..\n>> Launching Updates .. ( " + Math.round((stho.getItemcount() + stho.getAddCount()) * stho.getUpdRatio()) + " items )");
-                        Updrunner.upds(stho, source_client, destination_client, _prefix1);
-                        System.out.println(">> Completed Updates on source..");
-                        Thread.sleep(5000);
+                        //System.out.println("Front end on source ..\n>> Launching Updates .. ( " + Math.round((stho.getItemcount() + stho.getAddCount()) * stho.getUpdRatio()) + " items )");
+                       // Updrunner.upds(stho, source_client, destination_client, _prefix1);
+                        //System.out.println(">> Completed Updates on source..");
+                        //Thread.sleep(5000);
 
                     } catch (Exception e) {
                         e.printStackTrace();
